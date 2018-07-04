@@ -12,14 +12,14 @@ namespace LanguageFeatures.Controllers
         // GET: Home
         public String Index()
         {
-            return "Navigate to a URL to show an example"; 
+            return "Navigate to a URL to show an example";
         }
         public ViewResult AutoProperty()
         {
             Product myProduct = new Product();
             myProduct.Name = "Test prod";
             String strProdName = myProduct.Name;
-            return View("Result",(object)String.Format("Product Name{0}",strProdName));
+            return View("Result", (object)String.Format("Product Name{0}", strProdName));
         }
         public ViewResult CreateProduct()
         {
@@ -29,14 +29,14 @@ namespace LanguageFeatures.Controllers
             myProduct.Description = "A boat for one person";
             myProduct.Price = 275M;
             myProduct.Category = "Watersports";
-            return View("Result",(object)String.Format("Category: {0}", myProduct.Category));
-            
+            return View("Result", (object)String.Format("Category: {0}", myProduct.Category));
+
 
         }
         public ViewResult CreateProductObjectInitializer()
         {
-            Product myProduct = new Product { ProductID=100,Name="kkk",Description="check",Price=22,Category="wsports"};
-            
+            Product myProduct = new Product { ProductID = 100, Name = "kkk", Description = "check", Price = 22, Category = "wsports" };
+
             return View("Result", (object)String.Format("Category: {0}", myProduct.Category));
 
 
@@ -54,4 +54,5 @@ namespace LanguageFeatures.Controllers
             return View("Result", (object)stringArray[1]);
 
         }
+    }
     }
