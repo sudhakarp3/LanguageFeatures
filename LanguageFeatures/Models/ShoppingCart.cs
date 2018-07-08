@@ -6,7 +6,7 @@ using System.Web;
 
 namespace LanguageFeatures.Models
 {
-    public class ShoppingCart
+    public class ShoppingCart : IEnumerable<Product>
     {
         public List<Product> Products { get; set; }
         public  decimal TotalPrices( ShoppingCart cartParam)
@@ -18,11 +18,6 @@ namespace LanguageFeatures.Models
             }
             return total;
         }
-
-    }
-    public class ShoppingCard : IEnumerable<Product>
-    {
-        public List<Product> Products { get; set; }
         public IEnumerator<Product> GetEnumerator()
         {
             return Products.GetEnumerator();
@@ -32,5 +27,7 @@ namespace LanguageFeatures.Models
         {
             return GetEnumerator();
         }
+
     }
+    
 }

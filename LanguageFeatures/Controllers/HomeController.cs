@@ -81,7 +81,7 @@ namespace LanguageFeatures.Controllers
                     new Product {Name = "Corner flag", Price = 34.95M}
                 }
             };
-
+            
             // create and populate an array of Product objects
             Product[] productArray = {
                 new Product {Name = "Kayak", Price = 275M},
@@ -98,9 +98,35 @@ namespace LanguageFeatures.Controllers
                 (object)String.Format("Cart Total: {0}, Array Total: {1}",
                     cartTotal, arrayTotal));
         }
+        public ViewResult UseFilterExtensionMethod()
+        {
+            IEnumerable<Product> products = new ShoppingCart
+            {
+                Products = new List<Product> {
+                    new Product {Name = "Kayak", Category = "Watersports", Price = 275M},
+                    new Product {Name = "Lifejacket", Category = "Watersports",
+                       Price = 48.95M},
+                    new Product {Name = "Soccer ball", Category = "Soccer",
+                       Price = 19.50M},
+                    new Product {Name = "Corner flag", Category = "Soccer",
+                       Price = 34.95M}
+                }
+            };
+
+            decimal total = 0;
+            foreach (Product prod in products.FilterByCategory("Soccer"))
+            {
+                total += prod.Price;
+            }
+
+            return View("Result", (object)String.Format("Total: {0}", total));
+
+        }
+
+
     }
 } 
 
 
-    }
-    }
+    
+   
