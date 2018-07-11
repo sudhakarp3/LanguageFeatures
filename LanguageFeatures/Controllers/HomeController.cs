@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LanguageFeatures.Models;
+using System.Text;
 
 namespace LanguageFeatures.Controllers
 {
@@ -67,7 +68,7 @@ namespace LanguageFeatures.Controllers
             };
             decimal totPrice = shop.TotalPrices();
             return View("Result", (object)String.Format("Total Price: {0:c}", totPrice));
-            
+
         }
         public ViewResult UseExtensionEnumerable()
         {
@@ -81,7 +82,7 @@ namespace LanguageFeatures.Controllers
                     new Product {Name = "Corner flag", Price = 34.95M}
                 }
             };
-            
+
             // create and populate an array of Product objects
             Product[] productArray = {
                 new Product {Name = "Kayak", Price = 275M},
@@ -143,15 +144,41 @@ namespace LanguageFeatures.Controllers
             decimal total = 0;
 
             //foreach (Product prod in products.Filter(categoryFilter))
-            foreach( Product prod in products.Filter(prod => prod.Category == "Soccer"))
+            //foreach( Product prod in products.Filter(prod => prod.Category == "Soccer"))
+            foreach (Product prod in products
+            .Filter(prod => prod.Category == "Soccer" && prod.Price > 20))
             {
                 total += prod.Price;
             }
+
             return View("Result", (object)String.Format("Total: {0}", total));
 
-           
+
+
+
         }
 
+        public ViewResult CreateAnonArray()
+        {
+            //Using Automatic Type Inference 
+            var myVariable = new Product { Name = "Kayak", Category = "Watersports", Price = 275M };
+            string name = myVariable.Name; // legal
+
+            //Creating an Array of Anonymously Typed Objects in the HomeController.cs File
+            var oddsAndEnds = new[] {
+                new { Name = "MVC", Category = "Pattern"},
+                new { Name = "Hat", Category = "Clothing"},
+                new { Name = "Apple", Category = "Fruit"}
+            };
+            oddsAndEnds.Count();
+            StringBuilder result = new StringBuilder();
+            foreach (var item in oddsAndEnds)
+            {
+                result.Append(item.Name).Append(" ");
+            }
+            return View("Result", (object)result.ToString());
+        }
+    
 
     }
 } 
