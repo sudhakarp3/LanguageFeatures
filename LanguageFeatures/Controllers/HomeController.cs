@@ -257,6 +257,11 @@ new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
 
             return View("Result", (object)result.ToString());
         }
+        public ViewResult FindLenghtAsync()
+        {
+            return View("Result", (object)MyAsyncMethods.GetPgLength());
+
+        }
 
 
         }
