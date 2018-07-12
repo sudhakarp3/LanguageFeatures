@@ -229,10 +229,38 @@ new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
             }
             return View("Result", (object)result.ToString());
         }
+        public ViewResult FindProductsWithDot()
+        {
+
+            Product[] products = {
+                new Product {Name = "Kayak", Category = "Watersports", Price = 275M},
+                new Product {Name = "Lifejacket", Category = "Watersports", Price = 48.95M},
+                new Product {Name = "Soccer ball", Category = "Soccer", Price = 19.50M},
+                new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
+            };
+
+            var foundProducts = products.OrderByDescending(e => e.Price)
+                                    .Take(3)
+                                    .Select(e => new { e.Name, e.Price });
+            //the value of summ will not changes
+            var summ = products.Sum(e => e.Price);
+
+            //Deferred LINQ Queries
+            products[2] = new Product { Name = "Stadium", Price = 79600M };
+
+            StringBuilder result = new StringBuilder();
+            foreach (var p in foundProducts)
+            {
+                result.AppendFormat("Price: {0} ", p.Price);
+            }
+            result.AppendFormat("summ: {0} ", summ);
+
+            return View("Result", (object)result.ToString());
+        }
 
 
         }
-} 
+    } 
 
 
     
